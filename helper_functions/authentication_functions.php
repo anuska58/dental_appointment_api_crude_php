@@ -60,4 +60,21 @@ function login($password, $databasePassword, $userID)
         );
     }
 }
+
+function checkIdValidUser($token){
+    global $con;
+    if ($token != null){
+        $check_token= "SELECT * FROM personal_access_tokens WHERE token = '$token'";
+        $result = mysqli_query($con,$check_token);
+        $count = mysqli_num_rows($result);
+        if ($count > 0) {
+            $userID = mysqli_fetch_assoc($result)['user_id'];
+            return $userID;
+        } else {
+            return null;
+        }
+    } else{
+        return null;
+    }
+}
     
